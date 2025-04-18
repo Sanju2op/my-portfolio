@@ -7,8 +7,8 @@ import { Flame, Gamepad, Github } from "lucide-react";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -30,7 +30,7 @@ export default function Navbar() {
             {label}
           </Link>
         ))}
-        <Button variant="ghost" size="icon" asChild>
+        <Button className="bg-purple" variant="ghost" size="icon" asChild>
           <a href="https://github.com/Sanju2op" target="_blank">
             <Github className="w-5 h-5" />
           </a>
@@ -39,4 +39,3 @@ export default function Navbar() {
     </nav>
   );
 }
-  

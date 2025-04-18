@@ -10,10 +10,11 @@ export default function AboutSection() {
       <h2 className="text-3xl font-bold text-center">👨‍💻 About Me</h2>
 
       <p className="text-muted-foreground text-lg leading-relaxed text-center">
-        I’m Sanjay Lagariya — a passionate MCA student with a love for backend
-        development, building real-world apps, and gaming worlds like PUBG and
-        COD. I’ve built full-stack clones, solved DSA problems in Java, and
-        dream of joining a top-tier tech company.
+        I&apos;m Sanjay Lagariya, an MCA student with a strong interest in
+        backend development and building real-world web applications. I have
+        experience developing full-stack projects and solving data structures
+        and algorithms problems using Java. I&apos;m passionate about technology
+        and aspire to contribute to innovative teams at leading tech companies
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">

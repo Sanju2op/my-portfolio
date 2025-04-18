@@ -2,18 +2,18 @@
 
 export const projects = [
   {
-    title: "E-Commerce Web App",
+    title: "Testimonials Creation & Embedding System",
     description:
-      "A full-stack ecommerce web app with product listings, cart, and checkout features.",
-    github: "https://github.com/Sanju2op/ecommerce-app",
-    liveLink: "https://ecommerce-app.vercel.app",
+      "Platform for collecting, managing, and displaying customer testimonials. It allows users to gather testimonials through a dedicated landing page. Organize them via an interactive dashboard. Embed them on websites using customizable widgets.",
+    github: "https://github.com/Sanju2op/major-project-mern",
+    liveLink: "",
   },
   {
-    title: "Upwork Clone (Basic)",
+    title: "Upwork Clone - Freelancing Platform Prototype",
     description:
-      "A basic freelance marketplace clone built with Next.js and Tailwind CSS.",
-    github: "https://github.com/Sanju2op/upwork-clone",
-    liveLink: "https://upwork-clone.vercel.app",
+      "functional prototype of a freelancing platform replicating core features of Upwork. Clients can post projects, review bids, and hire freelancers. Freelancers can create profiles, submit proposals, and manage their dashboard. Admin dashboard to view metrics (signups, jobs, revenue), manage proposals and categories. ",
+    github: "https://github.com/Sanju2op/upwork_clone",
+    liveLink: "",
   },
   {
     title: "Anime Tracker",

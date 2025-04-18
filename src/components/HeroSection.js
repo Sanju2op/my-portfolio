@@ -12,9 +12,11 @@ export default function HeroSection() {
         Hi, I’m <span className="text-orange-500">Sanjay Lagariya</span> 👋
       </h1>
       <p className="max-w-xl text-muted-foreground text-lg">
-        I’m an MCA student passionate about web development, backend systems,
-        and gaming. I build apps, solve problems, and dream of joining tech
-        giants like Google, Amazon, or game studios like PUBG & COD.
+        I&apos;m an MCA student with a strong interest in web development and backend
+        engineering. I enjoy building practical applications and continuously
+        improving my problem-solving skills. I&apos;m currently focused on learning,
+        growing, and contributing meaningfully to a forward-thinking tech
+        company 
       </p>
       <div className="flex gap-4">
         <Link href="/projects">
