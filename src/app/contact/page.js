@@ -11,7 +11,7 @@ export default function ContactPage() {
     <div className="max-w-2xl mx-auto p-6 space-y-8">
       <h1 className="text-4xl font-bold text-center">Get in Touch</h1>
       <p className="text-muted-foreground text-center">
-        Let’s connect and build something cool together — whether it's code or
+        Let’s connect and build something cool together — whether it&apos;s code or
         games!
       </p>
 

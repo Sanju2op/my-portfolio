@@ -47,7 +47,7 @@ export default function AboutSection() {
       </div>
 
       <div className="text-center pt-6">
-        <h4 className="font-semibold">Tech Stack I’m Learning & Using:</h4>
+        <h4 className="font-semibold">Tech Stack I&apos;m Learning & Using:</h4>
         <div className="flex flex-wrap justify-center gap-2 mt-2">
           {[
             "JavaScript",
