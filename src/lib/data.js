@@ -16,10 +16,19 @@ export const projects = [
     liveLink: "",
   },
   {
-    title: "Anime Tracker",
+    title: "Keyboard Selling E-commerce Application",
     description:
-      "Track anime shows you're watching or planning to watch, with Anilist API.",
-    github: "https://github.com/Sanju2op/anime-tracker",
+      "a comprehensive college project that brings the world of mechanical keyboards and accessories to your fingertips. Inspired by the popular website stackskb.com",
+    github:
+      "https://github.com/Sanju2op/Sanju2op.github.io/tree/main/keyboardShopApp",
     liveLink: "",
   },
+  // {
+  //   title: "Keyboard Selling E-commerce Application",
+  //   description:
+  //     "a comprehensive college project that brings the world of mechanical keyboards and accessories to your fingertips. Inspired by the popular website stackskb.com",
+  //   github:
+  //     "https://github.com/Sanju2op/Sanju2op.github.io/tree/main/keyboardShopApp",
+  //   liveLink: "",
+  // },
 ];
