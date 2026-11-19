@@ -3,49 +3,46 @@
 Status key: [x] done, [ ] to do, [owner] waiting on Sanjay.
 
 ## Why this plan
-The current portfolio looks like a template (emoji headings, a grid of identical cards, a stale "MCA student" intro) and gives a recruiter no reason to stay. The goal is a portfolio that shows a few projects well, with real case studies, and hands the quick "who is he and what has he done" question to a separate resume site.
+The old portfolio looked like a template (emoji headings, a grid of identical cards, a stale "MCA student" intro) and gave a recruiter no reason to stay. The goal is a portfolio that shows a few projects well, with real case studies, and hands the quick "who is he and what has he done" question to a separate resume site.
 
-## Phase 0: Bootstrap (done in this commit)
+## Phase 0: Bootstrap
 - [x] `CLAUDE.md`, `README.md` and the five docs in `Docs/`
-- [x] Audit of the current repo (see `Docs/ARCHITECTURE.md`)
+- [x] Audit of the old repo
 
 ## Phase 1: Decisions (defaults apply if unanswered)
-- [owner] **Domain name** on `vercel.app`. Default: `sanjaylagariya.vercel.app`; fallbacks in `Docs/ARCHITECTURE.md`
-- [owner] **Astro vs staying on Next.js.** Default: Astro (content-heavy, static, better SEO and speed, React islands still possible)
-- [owner] **Project list** for the first launch. Default: the five in `Docs/CONTENT.md`, with the first three written up as case studies
-- [owner] Keep the "gaming spirit" personal line on the About page? Default: keep one short line, drop the rest
+- [owner] **Domain name** on `vercel.app`. Default: `sanjaylagariya.vercel.app`; fallbacks in `Docs/ARCHITECTURE.md`. Set in Vercel → Project → Settings → Domains
+- [x] **Astro vs staying on Next.js.** Default taken: Astro
+- [owner] **Project list** for the first launch. Default taken: the five in `Docs/CONTENT.md`, three featured
+- [owner] Keep the "gaming spirit" personal line on the About page? Default: left out for now
 
-## Phase 2: Scaffold the Astro rebuild (branch `astro-rewrite`)
-- [ ] Create the branch and an Astro 7 project in the repo (Tailwind v4, MDX, sitemap, sharp, React integration only if a page needs an island)
+## Phase 2: Astro rebuild
+- [x] Astro 7 project (MDX, sitemap, sharp), versions pinned
+- [x] `vercel.json` with `framework: astro`
+- [x] Shared design tokens in `src/styles/tokens.css`
+- [x] Layout, nav, footer, SEO head, JSON-LD, 404, favicon, build-time social image
+- [x] Content collection `projects` with a schema
+- [x] Clean-clone build passes (10 pages)
+- [x] Vercel preview deploy green; merged to `main`; production deploy green (19 Nov 2026)
 - [ ] Add `.agents/skills/frontend-design`
-- [ ] Shared design tokens in `src/styles/tokens.css` (same names as the resume site)
-- [ ] Layout, nav, footer, SEO head, JSON-LD, 404
-- [ ] Content collection `projects` with a schema (see `Docs/ARCHITECTURE.md`)
-- [ ] Build-time social image and favicon
-- [ ] Confirm the Vercel preview deploys. Check that the preview URL builds with the Astro preset
 
 ## Phase 3: Pages and content
-- [ ] Home: role, one-paragraph intro, selected work, short about, contact
-- [ ] `/projects`: index of all projects
-- [ ] `/projects/[slug]`: case study template (problem, role, stack, what was hard, result, links)
-- [ ] Case studies for the first three projects (draft from the repo READMEs and code, owner reviews)
-- [ ] `/about`: rewritten facts (full-stack, not "MCA student"), timeline
-- [ ] `/contact`: email and links, no phone number
+- [x] Home, `/projects`, case study template, `/about`, `/contact` (no phone number)
+- [x] Five project files with the owner's real descriptions; three marked as case studies in progress
+- [ ] Write the three case studies with the owner (problem, what I built, what was hard, result)
 - [owner] Real screenshots for each project (3 per project: overview, key screen, detail)
 - [owner] Live links. Most projects have none yet; deploy them or say "code only"
-- [owner] Current role and dates; resume link
+- [owner] Current role and dates; confirm the About copy
 
-## Phase 4: Signature and polish
-- [ ] Prototype "the shelf" project index (projects as cloth-bound spines) with a plain-list fallback and a phone layout
+## Phase 4: Signature, polish and cleanup
+- [ ] Prototype "the shelf" project index (cloth-bound spines) with a plain-list fallback and a phone layout
+- [ ] Decide whether any Sakuga VFX control (`finktheartist/sakuga-vfx`, MIT) earns a place; if so, use one on a single page and respect reduced motion
 - [ ] Accessibility pass: contrast, focus, heading order, reduced motion
 - [ ] Performance pass: Lighthouse mobile 95 or better; JavaScript under 50 KB on the home page
-- [ ] Remove old files: `favicon_backup.ico`, `favicon_failed.ico`, empty `Footer.js` and `SectionTitle.js`, commented-out code
+- [ ] Remove leftover Next.js files: `src/app/`, `src/components/*.js`, `src/components/ui/`, `src/lib/`, `components.json`, `eslint.config.mjs`, `jsconfig.json`, `next.config.mjs`, and the unused SVGs in `public/` (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`)
+- [ ] Delete the stale `astro-rewrite` branch
 
-## Phase 5: Launch
-- [ ] Review the preview deploy with the owner
-- [ ] Merge `astro-rewrite` into `main`
-- [ ] Switch the Vercel framework preset to Astro and redeploy if the first build fails
-- [ ] Add the chosen `vercel.app` domain and make it primary
+## Phase 5: Launch polish
+- [ ] Add the chosen `vercel.app` domain and make it primary; then set `site` in `astro.config.mjs` and the sitemap line in `public/robots.txt` to the new name
 - [ ] Update links on the resume site, GitHub profile and LinkedIn
 - [ ] Add the site to Google Search Console and submit the sitemap
 
