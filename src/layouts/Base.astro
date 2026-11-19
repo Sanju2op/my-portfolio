@@ -1,0 +1,58 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import { site, nav } from '../data/site';
+
+interface Props { title?: string; description?: string; index?: boolean }
+const { title = site.title, description = site.description, index = true } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/og.png', Astro.site).href;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#A94E32" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.name} />
+    <meta name="robots" content={index ? 'index, follow' : 'noindex'} />
+    {index && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Newsreader:opsz,wght@6..72,400..600&display=swap" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav">
+      <div>
+        <a class="mark" href="/" aria-label={`${site.name}, home`}>SL</a>
+        <nav aria-label="Main">
+          {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a>)}
+          <a href={site.resume}>Resume</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <div class="foot">
+      <footer>
+        <p>{site.name}</p>
+        <p><a href={site.github}>GitHub</a> · <a href={site.linkedin}>LinkedIn</a> · <a href={`mailto:${site.email}`}>Email</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

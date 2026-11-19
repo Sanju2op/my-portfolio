@@ -1,0 +1,7 @@
+/* Shared with Sanju2op.github.io: keep token names in sync */
+:root {
+  --bg: #A94E32; --fg: #FAF9F5; --soft: #FBEEE6; --card: #FAF9F5; --card-fg: #3A1A10;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Newsreader", Georgia, "Times New Roman", serif;
+  color-scheme: dark;
+}

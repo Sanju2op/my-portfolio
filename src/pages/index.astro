@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectList from '../components/ProjectList.astro';
+import { site, skills } from '../data/site';
+
+const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const featured = all.filter((p) => p.data.featured);
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Person', name: site.name, url: `${Astro.site}`, jobTitle: site.role,
+  email: site.email, sameAs: [site.github, site.linkedin, site.resume],
+  knowsAbout: ['JavaScript', 'React', 'Next.js', 'Node.js', 'Express.js', 'MongoDB', 'MySQL', 'Java'],
+};
+---
+<Base>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <h1>{site.name}</h1>
+  <p class="role">{site.role}</p>
+  <div class="intro">
+    <p class="lede">I build web apps from the React screens to the Node and Express code and the database behind them.</p>
+    <p>Below are the projects I would show first. Each one links to its code, and the case studies explain what I built and why.</p>
+    <div class="cta">
+      <a class="btn solid" href="/projects/">See my projects</a>
+      <a class="btn line" href={site.resume}>Read my resume</a>
+    </div>
+  </div>
+
+  <section aria-labelledby="work">
+    <h2 id="work">Selected work</h2>
+    <ProjectList items={featured} />
+    <p class="more"><a href="/projects/">All projects</a></p>
+  </section>
+
+  <section aria-labelledby="use">
+    <h2 id="use">What I work with</h2>
+    <dl class="skills">{skills.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>
+  </section>
+
+  <section aria-labelledby="hi">
+    <h2 id="hi">Say hi</h2>
+    <div class="contact">
+      <p>Got something to build, or just a question? Email is best.</p>
+      <p><a class="email" href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+  </section>
+</Base>
