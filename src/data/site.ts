@@ -1,0 +1,33 @@
+export const site = {
+  name: 'Sanjay Lagariya',
+  role: 'Full-stack developer',
+  title: 'Sanjay Lagariya — Full-stack developer in Gujarat, India',
+  description: 'Portfolio of Sanjay Lagariya, a full-stack developer working with React, Next.js, Node.js and MongoDB. Selected projects and contact details.',
+  email: 'sanjay.lagariya.dev@gmail.com',
+  github: 'https://github.com/sanju2op',
+  linkedin: 'https://linkedin.com/in/sanjay-lagariya',
+  resume: 'https://sanju2op.github.io/',
+};
+
+export const nav = [
+  { label: 'Projects', href: '/projects/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Contact', href: '/contact/' },
+];
+
+export const skills: [string, string][] = [
+  ['Front end', 'React, Next.js, Bootstrap, Tailwind CSS'],
+  ['Back end', 'Node.js, Express'],
+  ['Databases', 'MongoDB, MySQL'],
+  ['Languages', 'JavaScript, Java'],
+  ['Tools', 'Git, GitHub'],
+];
+
+// todo: true = waiting on the owner (shown with a dashed outline)
+export const timeline = [
+  { when: 'Dates', what: 'Your current role, Company', note: 'One line about what you do there.', todo: true },
+  { when: '2024 to 2026', what: 'MCA, UTU Bardoli' },
+  { when: '2024', what: 'Top 10, Project Spark Codefest', note: 'Inter-college coding event at UTU' },
+  { when: 'Jun to Jul 2024', what: 'Intern, Wappzo Infotech', note: 'HTML, CSS, JavaScript and Bootstrap' },
+  { when: 'Before that', what: 'BCA, V.S. Patel College, Bilimora', note: 'Finished with 89.10%' },
+];
