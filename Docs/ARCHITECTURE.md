@@ -8,17 +8,10 @@
 
 Both use the same design tokens (colours, type) so they read as one brand. They are separate repos and share no code at build time; tokens are copied and kept in sync by hand.
 
-## Current state (audit of the repo)
-- Next.js 15.3.1, React 19, Tailwind 4, shadcn/ui, framer-motion, lucide-react
-- Routes: `/`, `/about`, `/projects`, `/contact`
-- Components: `HeroSection`, `AboutSection`, `Navbar`, `ProjectCard`, `theme-provider`, `ui/` (shadcn). `Footer.js` and `SectionTitle.js` are empty files
-- Project data is in `src/lib/data.js` (three projects, one commented-out duplicate)
-- Spare files: `favicon_backup.ico`, `favicon_failed.ico` (about 270 KB each)
-- README is a single line; no docs
-- Copy is stale: it says "MCA student" and "backend development" while the owner works full-stack
-- Hosted on a long team-scoped Vercel URL: `my-portfolio-sanjay-lagariyas-projects.vercel.app`
+## State of the repo
+`main` still holds the old Next.js 15 template (Next, React 19, Tailwind 4, shadcn, framer-motion; routes `/`, `/about`, `/projects`, `/contact`; project data in `src/lib/data.js`; two empty component files; two spare 270 KB favicon files; a one-line README; stale "MCA student" copy; long team-scoped Vercel URL). Verdict: a template with a few facts dropped in.
 
-Verdict: it is a template with a few facts dropped in. Keep the project descriptions; rebuild everything else.
+The branch `astro-rewrite` holds the Astro rebuild described below. It builds cleanly from a fresh clone. Old Next.js files are still present on the branch and are listed for removal in `Docs/TASKS.md` (Phase 4).
 
 ## Target architecture
 An **Astro** static site, deployed on Vercel.
@@ -30,81 +23,78 @@ An **Astro** static site, deployed on Vercel.
 - React is still available as an "island" (`@astrojs/react`) if a case study needs an interactive demo.
 - Trade-off: the owner uses Next.js at work, so a Next.js portfolio could double as a skills showcase. The answer to that is the projects themselves, not the framework behind the portfolio.
 
-Default is Astro. If the owner prefers to stay on Next.js, keep the same content model and design and rebuild the pages in Next.js instead.
+Decision taken (default): Astro. If the owner prefers Next.js, keep the same content model and design and rebuild the pages in Next.js instead.
 
-### Repo layout (target)
+### Repo layout (on `astro-rewrite`)
 ```
 src/
-  content/
-    projects/*.mdx        one file per project; frontmatter + case study body
-  data/site.ts            name, role, links, nav, themes
-  layouts/Base.astro      head, SEO tags, fonts, theme bootstrap
-  layouts/CaseStudy.astro case study page layout
-  components/             Nav, Footer, ProjectRow, Shelf (signature), Seo
+  content/projects/*.mdx   one file per project; frontmatter + case study body
+  content.config.ts        collection schema
+  data/site.ts             name, role, links, nav, skills, timeline
+  layouts/Base.astro       head, SEO tags, fonts, nav, footer
+  components/ProjectList.astro
   pages/
-    index.astro           home
-    projects/index.astro  all projects
-    projects/[slug].astro case study (from the collection)
-    about.astro
-    contact.astro
-    404.astro
-    og.png.ts             social image drawn at build time
-  styles/tokens.css       colour and type tokens (shared names with the resume site)
+    index.astro            home
+    projects/index.astro   all projects
+    projects/[slug].astro  case study (from the collection)
+    about.astro  contact.astro  404.astro
+    og.png.ts              social image drawn at build time
+  styles/tokens.css        colour and type tokens (names shared with the resume site)
   styles/global.css
-public/                   favicon.svg, robots.txt
-Docs/                     these documents
-.agents/skills/           frontend-design
+public/                    favicon.svg, robots.txt
+vercel.json                { "framework": "astro" }
+Docs/                      these documents
+.agents/skills/            frontend-design (to add)
 ```
 
 ### Content model: `projects` collection
 ```
-title        string, required
-slug         from filename
-summary      string, one or two sentences, used on cards and in meta description
-stack        string[]
-role         string  (for example "Solo build", "Team of 3")
-year         number, optional until confirmed
-links        { code?: url, live?: url, docs?: url }
-cover        image, optional until a real screenshot exists
-featured     boolean   (shown on the home page)
-order        number
-todo         boolean   (true while content is waiting on the owner)
+title     string, required
+summary   string, used on lists and as the meta description
+stack     string[]
+role      string, optional
+year      number, optional until confirmed
+links     { code?, live?, docs? }  (valid URLs)
+featured  boolean   (shown on the home page)
+order     number
+todo      boolean   (true while the case study is waiting on the owner)
 ```
-Body is MDX with these sections: What it is, The problem, What I built, What was hard, Result, Screenshots.
+The page URL is the file name: `testimonials-system.mdx` is `/projects/testimonials-system/`. The body is MDX with the sections What it is, The problem, What I built, What was hard, Result, Screenshots.
 
 ### Data flow
-`src/content/projects/*.mdx` → content collection → `projects/index.astro` and `projects/[slug].astro`. Site-wide facts come from `src/data/site.ts`. Images are imported through `astro:assets` so they are resized at build time.
+`src/content/projects/*.mdx` → content collection → `projects/index.astro`, the home page and `projects/[slug].astro`. Site-wide facts come from `src/data/site.ts`. Images, once added, are imported through `astro:assets` so they are resized at build time.
 
 ## Hosting and domain
 - **Vercel** builds from GitHub. `main` is production; every other branch gets a preview URL.
-- When the rebuild merges, switch the project's framework preset from Next.js to Astro (Project → Settings → Build and Development).
+- `vercel.json` sets `{ "framework": "astro" }`. This overrides the project's saved Next.js preset, so no dashboard change is needed for the Astro build.
 - **Domain:** no purchase. A short `*.vercel.app` name is set in Project → Settings → Domains. Candidates in order of preference (availability is first-come on Vercel, so the dashboard tells you):
   1. `sanjaylagariya.vercel.app`
   2. `sanjay-lagariya.vercel.app`
   3. `lagariya.vercel.app`
   4. `sanjay-builds.vercel.app`
   5. `sanjaydev.vercel.app`
-- Make the new name the primary domain; the old long URL keeps working and redirects.
-- After switching, update: resume site (`src/data/site.ts` → `portfolio`), GitHub profile, LinkedIn, canonical URLs and the sitemap `site` setting in this repo.
+- Make the new name the primary domain; the old long URL keeps working.
+- After switching, update `site` in `astro.config.mjs`, the sitemap line in `public/robots.txt`, the resume site (`src/data/site.ts` → `portfolio`), the GitHub profile and LinkedIn.
+- Until the domain is chosen, `site` points at the current long Vercel URL so canonical links are not wrong.
 
 ## SEO
-Title, description, canonical, Open Graph and Twitter tags per page; JSON-LD `Person` on the home page and `CreativeWork` on case studies; generated `sitemap-index.xml`; `robots.txt`; a build-time social image per site (and optionally per project).
+Title, description, canonical, Open Graph and Twitter tags per page; JSON-LD `Person` on the home page; generated `sitemap-index.xml`; `robots.txt`; a build-time social image. Case studies use their summary as the meta description.
 
 ## Performance budget
 - Lighthouse mobile 95 or better in all four categories
-- Under 50 KB of JavaScript on the home page
-- Project images served as WebP, each under about 150 KB
+- Under 50 KB of JavaScript on the home page (it ships none today)
+- Project images as WebP, each under about 150 KB
 - Two font families at most
 
 ## Migration plan
-1. Create branch `astro-rewrite`. Scaffold Astro in place of Next.js (remove `next`, `eslint-config-next`, shadcn files that are not needed).
-2. Port the project descriptions into MDX files first; they are the most valuable existing content.
-3. Build the pages; check the Vercel preview URL after each push.
-4. Merge to `main` after the owner approves the preview. Switch the framework preset. Verify production.
-5. Delete leftover Next.js files in a follow-up commit.
+1. [x] Branch `astro-rewrite`; Astro scaffold; content ported into MDX.
+2. [x] Pages built; clean-clone build passes.
+3. [ ] Confirm the Vercel preview deploy; owner reviews it.
+4. [ ] Merge to `main`; verify production.
+5. [ ] Delete leftover Next.js files in a follow-up commit.
 
 ## Constraints and gotchas
-- Astro 7 needs Node 22.23.4 or newer. Set the Node version in Vercel (Settings → Build and Development) if needed.
-- Pin dependency versions; commit the lockfile (Vercel uses it).
+- Astro 7 needs Node 22.23.4 or newer. If the Vercel build complains about the Node version, set it in Project → Settings → Build and Development.
+- Dependency versions are pinned. The old lockfile was removed; the first Vercel install creates a new one.
+- A leftover `postcss.config.mjs` (from the old Tailwind setup) breaks the Astro build. It has been removed; do not add it back.
 - Case study screenshots are binary files and cannot be added through some automated tools; the owner may need to commit them directly.
-- Changing the framework preset is a dashboard action only the owner can do.
