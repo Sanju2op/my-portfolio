@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectList from '../../components/ProjectList.astro';
+
+const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Projects — Sanjay Lagariya" description="Projects by Sanjay Lagariya: web apps built with React, Node.js and MongoDB, with code links and case studies.">
+  <h1 class="page-title">Projects</h1>
+  <p class="lede" style="margin-top:1.2rem">Web apps I have built, newest thinking first. Each links to its code.</p>
+  <section style="margin-top:3rem"><ProjectList items={all} /></section>
+</Base>
