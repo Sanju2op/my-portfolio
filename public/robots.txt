@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://my-portfolio-sanjay-lagariyas-projects.vercel.app/sitemap-index.xml
+Sitemap: https://sanjaylagariya.vercel.app/sitemap-index.xml

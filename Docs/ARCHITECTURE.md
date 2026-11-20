@@ -3,7 +3,7 @@
 ## Two-site setup
 | Site | Where | Purpose |
 |---|---|---|
-| Portfolio | This repo, hosted on Vercel | Selected work with case studies, about, contact |
+| Portfolio | This repo, hosted on Vercel at `sanjaylagariya.vercel.app` | Selected work with case studies, about, contact |
 | Resume | `Sanju2op/Sanju2op.github.io`, GitHub Pages | A one-page, printable resume with a PDF download |
 
 Both use the same design tokens (colours, type) so they read as one brand. They are separate repos and share no code at build time; tokens are copied and kept in sync by hand.
@@ -20,6 +20,7 @@ The repo started as a Next.js 15 template (Next, React 19, Tailwind 4, shadcn, f
 
 ## Repo layout
 ```
+.github/workflows/ci.yml   build + output checks on every push and pull request
 src/
   content/projects/*.mdx   one file per project; frontmatter + case study body
   content.config.ts        collection schema
@@ -57,18 +58,14 @@ The page URL is the file name: `testimonials-system.mdx` is `/projects/testimoni
 ## Data flow
 `src/content/projects/*.mdx` → content collection → `projects/index.astro`, the home page and `projects/[slug].astro`. Site-wide facts come from `src/data/site.ts`. Images, once added, are imported through `astro:assets` so they are resized at build time.
 
-## Hosting and domain
-- **Vercel** builds from GitHub. `main` is production; every other branch gets a preview URL.
-- `vercel.json` sets `{ "framework": "astro" }`. This overrides the project's saved Next.js preset, so no dashboard change is needed.
-- **Domain:** no purchase. A short `*.vercel.app` name is set in Project → Settings → Domains. Candidates in order of preference (availability is first-come on Vercel, so the dashboard tells you):
-  1. `sanjaylagariya.vercel.app`
-  2. `sanjay-lagariya.vercel.app`
-  3. `lagariya.vercel.app`
-  4. `sanjay-builds.vercel.app`
-  5. `sanjaydev.vercel.app`
-- Make the new name the primary domain; the old long URL keeps working.
-- After switching, update `site` in `astro.config.mjs`, the sitemap line in `public/robots.txt`, the resume site (`src/data/site.ts` → `portfolio`), the GitHub profile and LinkedIn.
-- Until the domain is chosen, `site` points at the current long Vercel URL so canonical links are not wrong.
+## Hosting, domain and CI
+- **Vercel** builds from GitHub. `main` is production; every other branch gets a preview URL. `vercel.json` sets `{ "framework": "astro" }`.
+- **Primary domain:** `sanjaylagariya.vercel.app` (added to the project and verified on 19 Nov 2026). It is a free `vercel.app` name, so nothing was purchased.
+- **Other addresses on the project:**
+  - `my-portfolio-vert-gamma.vercel.app` is an old auto-generated name and is to be removed in the Vercel dashboard (Project → Settings → Domains → Remove). The Vercel connector cannot remove domains.
+  - Vercel also keeps automatic per-deployment and per-branch URLs. These cannot be removed and are only reachable by the owner while Deployment Protection is on.
+- **If the primary domain changes:** update `site` in `astro.config.mjs`, the sitemap line in `public/robots.txt`, the canonical check in `.github/workflows/ci.yml`, the resume site's `portfolio` link, the GitHub profile and LinkedIn.
+- **GitHub Actions CI** (`ci.yml`) runs on every push to `main` and every pull request: install, build, then check that key pages exist, the canonical URL is the primary domain, and no phone number or `tel:` link is in the build. It does not deploy; Vercel does.
 
 ## SEO
 Title, description, canonical, Open Graph and Twitter tags per page; JSON-LD `Person` on the home page; generated `sitemap-index.xml`; `robots.txt`; a build-time social image. Case studies use their summary as the meta description.
@@ -81,7 +78,7 @@ Title, description, canonical, Open Graph and Twitter tags per page; JSON-LD `Pe
 
 ## Constraints and gotchas
 - Astro 7 needs Node 22.23.4 or newer. If a Vercel build complains about the Node version, set it in Project → Settings → Build and Development.
-- Dependency versions are pinned. There is no committed lockfile; Vercel creates one on install.
+- Dependency versions are pinned. There is no committed lockfile; Vercel and CI create one on install.
 - A leftover `postcss.config.mjs` (from the old Tailwind setup) breaks the Astro build. It was removed; do not add it back.
 - A failed Vercel build never replaces the live site. Intermediate commits can show a failed deploy email while a later commit succeeds; check the newest deployment.
 - Case study screenshots are binary files and cannot be added through some automated tools; the owner may need to commit them directly.
