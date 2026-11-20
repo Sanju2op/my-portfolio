@@ -8,12 +8,12 @@ Sanjay Lagariya's **main portfolio site**, live at https://sanjaylagariya.vercel
 | Site | Repo | Role |
 |---|---|---|
 | **Portfolio** (this repo) | `Sanju2op/my-portfolio` | The showpiece: selected work, case studies, about, contact |
-| **Resume** | `Sanju2op/Sanju2op.github.io` | A short, printable resume site with a PDF download |
+| **Resume** | `Sanju2op/Sanju2op.github.io` | A one-page, printable resume with a PDF download, at https://sanju2op.github.io |
 
 The portfolio links to the resume; the resume links back to the portfolio for detail.
 
 ## Status
-The Astro rebuild is live on `main` (merged 19 Nov 2026) on the domain `sanjaylagariya.vercel.app`. The three featured case studies are still placeholders waiting on the owner. A few leftover Next.js files remain and are listed for removal in `Docs/TASKS.md` (Phase 4).
+The Astro rebuild is live on `main` on the domain `sanjaylagariya.vercel.app`, and the old Next.js files have been removed (20 Nov 2026). The three featured case studies are still placeholders waiting on the owner.
 
 ## Read before changing anything
 - `Docs/TASKS.md` — phases, what is done, what is next, what is waiting on the owner
@@ -42,7 +42,7 @@ Node 22.23.4 or newer is required (Astro 7). Dependency versions are pinned.
 5. Default look is the book cloth theme: ivory (`#FAF9F5`) on clay (`#A94E32`). Body text must keep 4.5:1 contrast or better.
 6. Use real screenshots for projects. No stock imagery.
 7. Domain changes are made in the Vercel dashboard or connector, never guessed in code. If the primary domain changes, update `site` in `astro.config.mjs`, the sitemap line in `public/robots.txt`, and the canonical check in `ci.yml`.
-8. Do not add Tailwind, PostCSS or shadcn config back. A leftover `postcss.config.mjs` breaks the Astro build.
+8. Do not add Next.js, Tailwind, PostCSS or shadcn files back. A leftover `postcss.config.mjs` breaks the Astro build.
 9. Do not commit large binaries or spare files.
 
 ## Skills

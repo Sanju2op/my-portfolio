@@ -15,13 +15,13 @@ The old portfolio looked like a template (emoji headings, a grid of identical ca
 - [owner] **Project list** for the first launch. Default taken: the five in `Docs/CONTENT.md`, three featured
 - [owner] Keep the "gaming spirit" personal line on the About page? Default: left out for now
 
-## Phase 2: Astro rebuild
-- [x] Astro 7 project (MDX, sitemap, sharp), versions pinned
-- [x] `vercel.json` with `framework: astro`
+## Phase 2: Astro rebuild (done)
+- [x] Astro 7 project (MDX, sitemap, sharp), versions pinned; `vercel.json` with `framework: astro`
 - [x] Shared design tokens, layout, nav, footer, SEO head, JSON-LD, 404, favicon, social image
 - [x] Content collection `projects` with a schema
-- [x] Merged to `main`; production deploy green (19 Nov 2026)
-- [x] GitHub Actions CI (`.github/workflows/ci.yml`): build plus output checks on every push and pull request
+- [x] Merged to `main`; production deploy green
+- [x] GitHub Actions CI (`.github/workflows/ci.yml`)
+- [x] Removed all leftover Next.js files, the spare 270 KB favicons and the unused template SVGs (20 Nov 2026)
 - [ ] Add `.agents/skills/frontend-design`
 
 ## Phase 3: Pages and content
@@ -32,14 +32,13 @@ The old portfolio looked like a template (emoji headings, a grid of identical ca
 - [owner] Live links. Most projects have none yet; deploy them or say "code only"
 - [owner] Current role and dates; confirm the About copy
 
-## Phase 4: Signature, polish and cleanup
+## Phase 4: Signature and polish
 - [ ] Prototype "the shelf" project index (cloth-bound spines) with a plain-list fallback and a phone layout
 - [ ] Decide whether any Sakuga VFX control (`finktheartist/sakuga-vfx`, MIT) earns a place; if so, use one on a single page and respect reduced motion
 - [ ] Accessibility pass: contrast, focus, heading order, reduced motion
 - [ ] Performance pass: Lighthouse mobile 95 or better; JavaScript under 50 KB on the home page
 - [owner] **Remove the old domain `my-portfolio-vert-gamma.vercel.app`** in Vercel (Project → Settings → Domains → Remove). The connector cannot remove domains
-- [ ] Remove leftover Next.js files: `src/app/`, `src/components/*.js`, `src/components/ui/`, `src/lib/`, `components.json`, `eslint.config.mjs`, `jsconfig.json`, `next.config.mjs`, and the unused SVGs in `public/` (`file.svg`, `globe.svg`, `next.svg`, `vercel.svg`, `window.svg`)
-- [ ] Delete the stale `astro-rewrite` branch
+- [owner] Delete the stale `astro-rewrite` branch on GitHub (Branches page). No tool can delete branches
 
 ## Phase 5: Launch polish
 - [x] Primary domain set in `astro.config.mjs`, `public/robots.txt` and the CI check

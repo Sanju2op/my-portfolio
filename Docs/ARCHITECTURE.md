@@ -8,8 +8,8 @@
 
 Both use the same design tokens (colours, type) so they read as one brand. They are separate repos and share no code at build time; tokens are copied and kept in sync by hand.
 
-## History and current state
-The repo started as a Next.js 15 template (Next, React 19, Tailwind 4, shadcn, framer-motion) with generic copy, two empty component files, two spare 270 KB favicon files and a one-line README. It was rebuilt on **Astro** and merged to `main` on 19 Nov 2026. Some old Next.js files are still in the repo and are listed for removal in `Docs/TASKS.md` (Phase 4). The old project descriptions were kept and moved into MDX.
+## History
+The repo started as a Next.js 15 template (Next, React 19, Tailwind 4, shadcn, framer-motion) with generic copy, two empty component files, two spare 270 KB favicon files and a one-line README. It was rebuilt on **Astro**, merged to `main` on 19 Nov 2026, and every leftover Next.js file was removed on 20 Nov 2026. The old project descriptions were kept and moved into MDX.
 
 ## Why Astro rather than Next.js
 - The site is almost all content: a few pages and one case study per project. Astro's MDX content collections fit that exactly.
@@ -79,6 +79,6 @@ Title, description, canonical, Open Graph and Twitter tags per page; JSON-LD `Pe
 ## Constraints and gotchas
 - Astro 7 needs Node 22.23.4 or newer. If a Vercel build complains about the Node version, set it in Project → Settings → Build and Development.
 - Dependency versions are pinned. There is no committed lockfile; Vercel and CI create one on install.
-- A leftover `postcss.config.mjs` (from the old Tailwind setup) breaks the Astro build. It was removed; do not add it back.
-- A failed Vercel build never replaces the live site. Intermediate commits can show a failed deploy email while a later commit succeeds; check the newest deployment.
+- A leftover `postcss.config.mjs` (from the old Tailwind setup) breaks the Astro build. Do not add it back.
+- A failed Vercel build never replaces the live site. Intermediate commits can show a failed or cancelled deploy while a later commit succeeds; check the newest deployment.
 - Case study screenshots are binary files and cannot be added through some automated tools; the owner may need to commit them directly.
