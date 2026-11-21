@@ -27,10 +27,11 @@ The old portfolio looked like a template (emoji headings, a grid of identical ca
 ## Phase 3: Pages and content
 - [x] Home, `/projects`, case study template, `/about`, `/contact` (no phone number)
 - [x] Five project files with the owner's real descriptions; three marked as case studies in progress
+- [x] Current role on the About timeline: DI Solutions, intern from Dec 2025, employee since Jun 2026 (20 Nov 2026)
 - [ ] Write the three case studies with the owner (problem, what I built, what was hard, result)
 - [owner] Real screenshots for each project (3 per project: overview, key screen, detail)
 - [owner] Live links. Most projects have none yet; deploy them or say "code only"
-- [owner] Current role and dates; confirm the About copy
+- [owner] Confirm the About intro copy
 
 ## Phase 4: Signature and polish
 - [ ] Prototype "the shelf" project index (cloth-bound spines) with a plain-list fallback and a phone layout

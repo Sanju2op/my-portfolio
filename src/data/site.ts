@@ -25,7 +25,8 @@ export const skills: [string, string][] = [
 
 // todo: true = waiting on the owner (shown with a dashed outline)
 export const timeline = [
-  { when: 'Dates', what: 'Your current role, Company', note: 'One line about what you do there.', todo: true },
+  { when: 'Jun 2026 to now', what: 'Full-stack developer, DI Solutions', note: 'React, Next.js, Node.js and MySQL' },
+  { when: 'Dec 2025 to Jun 2026', what: 'Intern, DI Solutions' },
   { when: '2024 to 2026', what: 'MCA, UTU Bardoli' },
   { when: '2024', what: 'Top 10, Project Spark Codefest', note: 'Inter-college coding event at UTU' },
   { when: 'Jun to Jul 2024', what: 'Intern, Wappzo Infotech', note: 'HTML, CSS, JavaScript and Bootstrap' },
