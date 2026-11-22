@@ -6,9 +6,14 @@ const { items } = Astro.props;
 <ul class="projects">
   {items.map((p) => (
     <li>
-      <h3><a href={`/projects/${p.id}/`}>{p.data.title}</a></h3>
-      <p>{p.data.summary}</p>
-      {p.data.stack.length > 0 && <p class="stack">{p.data.stack.join(', ')}</p>}
+      <a class="cover" href={`/projects/${p.id}/`} tabindex="-1" aria-hidden="true">
+        <img src={p.data.cover ?? `/covers/${p.id}.svg`} alt="" width="800" height="500" loading="lazy" />
+      </a>
+      <div>
+        <h3><a href={`/projects/${p.id}/`}>{p.data.title}</a></h3>
+        <p>{p.data.summary}</p>
+        {p.data.stack.length > 0 && <p class="stack">{p.data.stack.join(', ')}</p>}
+      </div>
     </li>
   ))}
 </ul>
