@@ -1,62 +1,47 @@
 # Tasks
 
-Status key: [x] done, [ ] to do, [owner] waiting on Sanjay.
+Status key: [x] done, [ ] to do, [owner] waiting on Sanjay (see `Docs/NEEDS.md`).
 
-## Why this plan
-The old portfolio looked like a template (emoji headings, a grid of identical cards, a stale "MCA student" intro) and gave a recruiter no reason to stay. The goal is a portfolio that shows a few projects well, with real case studies, and hands the quick "who is he and what has he done" question to a separate resume site.
+## Where we are (updated 23 Nov 2026)
+The portfolio is live on `sanjaylagariya.vercel.app`, responsive at three sizes, with dummy content standing in for the missing real content. The resume is live on `sanju2op.github.io`. The next session should continue with **Backlog, in order** below.
 
-## Phase 0: Bootstrap
-- [x] `CLAUDE.md`, `README.md` and the five docs in `Docs/`
-- [x] Audit of the old repo
+## Done
+- [x] Astro rebuild, Vercel deploy, GitHub Actions CI, domain `sanjaylagariya.vercel.app`
+- [x] All old Next.js files removed (20 Nov 2026)
+- [x] Current role (DI Solutions: intern Dec 2025, employee Jun 2026) on the About timeline
+- [x] Dummy content in place: case studies for the three featured projects, a bio, a drawn portrait, generated project covers; no placeholder outlines on the page (23 Nov 2026)
+- [x] Responsive layout: phone, tablet (54 rem) and desktop (68 rem) wrappers; hero with portrait; project rows with covers; case study with a sticky facts sidebar on desktop
+- [x] Research on resume and portfolio best practices (see Backlog notes)
 
-## Phase 1: Decisions
-- [x] **Domain:** `sanjaylagariya.vercel.app` added to the Vercel project and verified (19 Nov 2026)
-- [x] **Astro vs staying on Next.js.** Astro
-- [owner] **Project list** for the first launch. Default taken: the five in `Docs/CONTENT.md`, three featured
-- [owner] Keep the "gaming spirit" personal line on the About page? Default: left out for now
+## Backlog, in order
+1. [ ] Add `.agents/skills/frontend-design` to this repo
+2. [ ] **The shelf**: project index as cloth-bound spines on tablet and desktop, with a plain list on phones and a keyboard-operable fallback (see `Docs/DESIGN.md`)
+3. [ ] Per-project social images: generate a card per project at build time (title on clay), like `og.png`
+4. [ ] Case study navigation: previous and next project links at the bottom of each case study
+5. [ ] Structured data: `CreativeWork` JSON-LD on each case study, `BreadcrumbList` on project pages
+6. [ ] Accessibility checks in CI: run axe against the built pages with Playwright and fail on serious issues
+7. [ ] Performance checks in CI: Lighthouse on the home and one case study; budget of 95 on mobile
+8. [ ] Self-host the two fonts (faster, no third-party request) and add `font-display` tuning
+9. [ ] Image pipeline for real screenshots: import through `astro:assets` so they are resized and converted to WebP
+10. [ ] Decide on a Sakuga VFX control (`finktheartist/sakuga-vfx`, MIT) for one spot on the Contact page, or drop the idea
+11. [ ] A short "now" page and notes section, once there is something to say
+12. [ ] Colour theme choice (Sky, Blue, Marigold, Mint, Coral) as an optional footer control, if wanted
 
-## Phase 2: Astro rebuild (done)
-- [x] Astro 7 project (MDX, sitemap, sharp), versions pinned; `vercel.json` with `framework: astro`
-- [x] Shared design tokens, layout, nav, footer, SEO head, JSON-LD, 404, favicon, social image
-- [x] Content collection `projects` with a schema
-- [x] Merged to `main`; production deploy green
-- [x] GitHub Actions CI (`.github/workflows/ci.yml`)
-- [x] Removed all leftover Next.js files, the spare 270 KB favicons and the unused template SVGs (20 Nov 2026)
-- [ ] Add `.agents/skills/frontend-design`
+Research notes behind the backlog: the portfolio should state the role in the first screen, use one consistent format per project, keep links working, and load fast on mobile. Recruiters scan for a few seconds, so the strongest three projects must come first.
 
-## Phase 3: Pages and content
-- [x] Home, `/projects`, case study template, `/about`, `/contact` (no phone number)
-- [x] Five project files with the owner's real descriptions; three marked as case studies in progress
-- [x] Current role on the About timeline: DI Solutions, intern from Dec 2025, employee since Jun 2026 (20 Nov 2026)
-- [ ] Write the three case studies with the owner (problem, what I built, what was hard, result)
-- [owner] Real screenshots for each project (3 per project: overview, key screen, detail)
-- [owner] Live links. Most projects have none yet; deploy them or say "code only"
-- [owner] Confirm the About intro copy
+## Waiting on Sanjay
+See `Docs/NEEDS.md` for the full, current list. The biggest items are a real photo, real screenshots for the three featured projects, and your own words for the case studies and the bio.
 
-## Phase 4: Signature and polish
-- [ ] Prototype "the shelf" project index (cloth-bound spines) with a plain-list fallback and a phone layout
-- [ ] Decide whether any Sakuga VFX control (`finktheartist/sakuga-vfx`, MIT) earns a place; if so, use one on a single page and respect reduced motion
-- [ ] Accessibility pass: contrast, focus, heading order, reduced motion
-- [ ] Performance pass: Lighthouse mobile 95 or better; JavaScript under 50 KB on the home page
-- [owner] **Remove the old domain `my-portfolio-vert-gamma.vercel.app`** in Vercel (Project → Settings → Domains → Remove). The connector cannot remove domains
-- [owner] Delete the stale `astro-rewrite` branch on GitHub (Branches page). No tool can delete branches
-
-## Phase 5: Launch polish
-- [x] Primary domain set in `astro.config.mjs`, `public/robots.txt` and the CI check
-- [x] Resume site links to the new domain
-- [owner] Update the GitHub profile and LinkedIn to the new link
-- [ ] Add the site to Google Search Console and submit the sitemap
-
-## Phase 6: Later
-- [ ] Short notes or a "now" page
-- [ ] A custom domain, if the owner ever wants one
-- [ ] Self-host fonts
+## Cleanup only the owner can do
+- [owner] Remove the old Vercel domain `my-portfolio-vert-gamma.vercel.app`
+- [owner] Delete the stale branch `astro-rewrite` on GitHub
+- [owner] Update GitHub profile and LinkedIn once dummy content is replaced
 
 ## Definition of done for version 1
 - Live on `sanjaylagariya.vercel.app` from `main`
-- No placeholders visible; every link works
+- No dummy content left; every link works
 - Three real case studies with screenshots
-- Reads well on a phone; passes keyboard navigation
+- Reads well on phone, tablet and desktop; passes keyboard navigation
 - Lighthouse mobile 95 or better in all four categories
 - The resume site and portfolio link to each other
 
