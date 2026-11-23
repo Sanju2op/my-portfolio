@@ -8,20 +8,22 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, summary, stack, role, year, links, todo } = entry.data;
+const { title, summary, stack, role, year, links, cover } = entry.data;
 const linkLabels: [keyof typeof links, string][] = [['live', 'Live site'], ['code', 'Code'], ['docs', 'Screen layouts']];
 ---
 <Base title={`${title} — Sanjay Lagariya`} description={summary}>
   <p class="more" style="margin-top:0"><a href="/projects/">All projects</a></p>
   <h1 class="page-title">{title}</h1>
   <p class="lede" style="margin-top:1.2rem">{summary}</p>
-  <dl class="facts">
-    {role && <><dt>Role</dt><dd>{role}</dd></>}
-    {year && <><dt>Year</dt><dd>{year}</dd></>}
-    {stack.length > 0 && <><dt>Stack</dt><dd>{stack.join(', ')}</dd></>}
-    <dt>Links</dt>
-    <dd>{linkLabels.filter(([k]) => links[k]).map(([k, label]) => <a href={links[k]} target="_blank" rel="noopener noreferrer">{label}</a>)}</dd>
-  </dl>
-  {todo && <p class="note" data-todo>This case study is still being written. The sections below fill in as it is finished.</p>}
-  <div class="prose"><Content /></div>
+  <img class="banner" src={cover ?? `/covers/${entry.id}.svg`} alt={`Screenshot of ${title}`} width="800" height="500" />
+  <div class="case">
+    <dl class="facts">
+      {role && <><dt>Role</dt><dd>{role}</dd></>}
+      {year && <><dt>Year</dt><dd>{year}</dd></>}
+      {stack.length > 0 && <><dt>Stack</dt><dd>{stack.join(', ')}</dd></>}
+      <dt>Links</dt>
+      <dd>{linkLabels.filter(([k]) => links[k]).map(([k, label]) => <a href={links[k]} target="_blank" rel="noopener noreferrer">{label}</a>)}</dd>
+    </dl>
+    <div class="prose"><Content /></div>
+  </div>
 </Base>

@@ -8,21 +8,27 @@ const all = (await getCollection('projects')).sort((a, b) => a.data.order - b.da
 const featured = all.filter((p) => p.data.featured);
 const jsonLd = {
   '@context': 'https://schema.org', '@type': 'Person', name: site.name, url: `${Astro.site}`, jobTitle: site.role,
+  worksFor: { '@type': 'Organization', name: site.employer },
   email: site.email, sameAs: [site.github, site.linkedin, site.resume],
   knowsAbout: ['JavaScript', 'React', 'Next.js', 'Node.js', 'Express.js', 'MongoDB', 'MySQL', 'Java'],
 };
 ---
 <Base>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
-  <h1>{site.name}</h1>
-  <p class="role">{site.role}</p>
-  <div class="intro">
-    <p class="lede">I build web apps from the React screens to the Node and Express code and the database behind them.</p>
-    <p>Below are the projects I would show first. Each one links to its code, and the case studies explain what I built and why.</p>
-    <div class="cta">
-      <a class="btn solid" href="/projects/">See my projects</a>
-      <a class="btn line" href={site.resume}>Read my resume</a>
+  <div class="hero">
+    <div>
+      <h1>{site.name}</h1>
+      <p class="role">{site.role} at {site.employer}</p>
+      <div class="intro">
+        <p class="lede">I build web apps from the React screens to the Node and Express code and the database behind them.</p>
+        <p>Below are the projects I would show first. Each one links to its code, and the case studies explain what I built and why.</p>
+        <div class="cta">
+          <a class="btn solid" href="/projects/">See my projects</a>
+          <a class="btn line" href={site.resume}>Read my resume</a>
+        </div>
+      </div>
     </div>
+    <img class="portrait" src="/portrait.svg" alt="Portrait of Sanjay Lagariya" width="480" height="576" />
   </div>
 
   <section aria-labelledby="work">

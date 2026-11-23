@@ -1,18 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, skills, timeline } from '../data/site';
+import { site, bio, skills, timeline } from '../data/site';
 ---
 <Base title="About — Sanjay Lagariya" description="About Sanjay Lagariya: a full-stack developer from Gujarat, India. Skills, education and experience.">
-  <h1 class="page-title">About</h1>
-  <p class="lede" style="margin-top:1.2rem">I am a full-stack developer based in Gujarat, India. I work with React, Next.js, Node.js, Express and MongoDB, and I like turning a rough idea into something that runs.</p>
+  <div class="about-top">
+    <div>
+      <h1 class="page-title">About</h1>
+      <p class="lede" style="margin-top:1.2rem">I am a full-stack developer based in Gujarat, India, working at {site.employer}.</p>
+      {bio.map((para) => <p>{para}</p>)}
+    </div>
+    <img class="portrait" src="/portrait.svg" alt="Portrait of Sanjay Lagariya" width="480" height="576" />
+  </div>
 
   <section aria-labelledby="been">
     <h2 id="been">Where I’ve been</h2>
     <dl class="timeline">
-      {timeline.map((t) => (
-        <><dt data-todo={t.todo ? '' : undefined}>{t.when}</dt>
-        <dd data-todo={t.todo ? '' : undefined}><strong>{t.what}</strong>{t.note && <span>{t.note}</span>}</dd></>
-      ))}
+      {timeline.map((t) => <><dt>{t.when}</dt><dd><strong>{t.what}</strong>{t.note && <span>{t.note}</span>}</dd></>)}
     </dl>
   </section>
 
