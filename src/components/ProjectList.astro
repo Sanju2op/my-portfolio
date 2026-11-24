@@ -2,18 +2,67 @@
 import type { CollectionEntry } from 'astro:content';
 interface Props { items: CollectionEntry<'projects'>[] }
 const { items } = Astro.props;
+// Spine label: the title up to the first " & ", ": " or dash
+const short = (t: string) => t.split(/ [&:–-] /)[0].trim();
 ---
-<ul class="projects">
+<ul class="projects shelf">
   {items.map((p) => (
     <li>
-      <a class="cover" href={`/projects/${p.id}/`} tabindex="-1" aria-hidden="true">
-        <img src={p.data.cover ?? `/covers/${p.id}.svg`} alt="" width="800" height="500" loading="lazy" />
-      </a>
-      <div>
-        <h3><a href={`/projects/${p.id}/`}>{p.data.title}</a></h3>
-        <p>{p.data.summary}</p>
-        {p.data.stack.length > 0 && <p class="stack">{p.data.stack.join(', ')}</p>}
+      <a class="spine" href={`/projects/${p.id}/`}><span>{short(p.data.title)}</span></a>
+      <div class="panel">
+        <a class="cover" href={`/projects/${p.id}/`} tabindex="-1" aria-hidden="true">
+          <img src={p.data.cover ?? `/covers/${p.id}.svg`} alt="" width="800" height="500" loading="lazy" />
+        </a>
+        <div class="info">
+          <h3><a href={`/projects/${p.id}/`}>{p.data.title}</a></h3>
+          <p>{p.data.summary}</p>
+          {p.data.stack.length > 0 && <p class="stack">{p.data.stack.join(', ')}</p>}
+        </div>
       </div>
     </li>
   ))}
 </ul>
+
+<style>
+  /* Phone: a plain list, cover beside or above the text */
+  .projects li { display: block; padding: 1.4rem 0 1.6rem; }
+  .spine { display: none; }
+  .panel { display: grid; gap: 1rem 1.6rem; }
+  @media (min-width: 40rem) and (max-width: 47.99rem) {
+    .panel { grid-template-columns: clamp(12rem, 28vw, 19rem) 1fr; align-items: center; }
+  }
+
+  /* Tablet and desktop: the shelf. Spines stand on a board; the active book opens to a page. */
+  @media (min-width: 48rem) {
+    .shelf { --w: clamp(3.6rem, 6.5vw, 5.4rem); display: flex; align-items: flex-end; gap: 0.55rem; padding: 0 0.6rem; border-bottom: 14px solid var(--fg); min-height: 24.5rem; }
+    .shelf li { flex: 0 0 var(--w); height: var(--h); display: flex; padding: 0; overflow: hidden; background: var(--tone); color: var(--ink); border: 2px solid var(--fg); border-bottom: 0; transition: flex-grow 0.45s cubic-bezier(0.3, 0.7, 0.2, 1); }
+    .shelf li:last-child { border-bottom: 0; }
+    .shelf li:nth-child(5n+1) { --tone: #7E3A24; --ink: #FAF9F5; --h: 24rem; }
+    .shelf li:nth-child(5n+2) { --tone: #FAF9F5; --ink: #3A1A10; --h: 22.5rem; }
+    .shelf li:nth-child(5n+3) { --tone: #E0A458; --ink: #2A1A06; --h: 23.5rem; }
+    .shelf li:nth-child(5n+4) { --tone: #8FB08A; --ink: #14260F; --h: 22rem; }
+    .shelf li:nth-child(5n+5) { --tone: #7FA3C4; --ink: #0B1B33; --h: 23rem; }
+
+    .spine { display: flex; flex: 0 0 calc(var(--w) - 4px); justify-content: center; align-items: flex-start; padding: 1.5rem 0; position: relative; color: inherit; text-decoration: none; }
+    .spine span { writing-mode: vertical-rl; transform: rotate(180deg); font: 700 clamp(1.05rem, 0.7rem + 0.7vw, 1.25rem)/1 var(--display); font-stretch: 85%; letter-spacing: 0.01em; white-space: nowrap; }
+    .spine::before, .spine::after { content: ''; position: absolute; left: 0.75rem; right: 0.75rem; height: 3px; background: currentColor; opacity: 0.5; }
+    .spine::before { top: 0.7rem; }
+    .spine::after { bottom: 0.7rem; }
+    .shelf .spine:hover { background: none; color: inherit; }
+    .spine:focus-visible { outline-offset: -7px; }
+
+    .panel { flex: 1 1 auto; min-width: 16rem; container-type: inline-size; display: flex; flex-wrap: wrap; align-items: center; align-content: center; gap: 1.2rem 1.6rem; padding: 1.4rem; background: var(--card); color: var(--card-fg); opacity: 0; visibility: hidden; transition: opacity 0.25s, visibility 0s 0.45s; }
+    .panel a:hover { background: var(--card-fg); color: var(--card); }
+    .panel .cover { flex: 0 1 clamp(12rem, 38%, 18rem); }
+    .panel .info { flex: 1 1 12rem; }
+    /* not enough room for cover and text side by side: text only */
+    @container (max-width: 26.5rem) { .cover { display: none; } }
+    .panel h3 { font-size: 1.35rem; }
+    .panel .stack { color: var(--card-fg); opacity: 0.75; }
+
+    /* open state: hovered, keyboard-focused, or the first book when nothing else is active */
+    .shelf li:hover, .shelf li:focus-within { flex: 1 1 var(--w); }
+    .shelf:not(:has(li:hover, li:focus-within)) li:first-child { flex: 1 1 var(--w); }
+    .shelf li:hover .panel, .shelf li:focus-within .panel, .shelf:not(:has(li:hover, li:focus-within)) li:first-child .panel { opacity: 1; visibility: visible; transition: opacity 0.3s 0.15s, visibility 0s; }
+  }
+</style>

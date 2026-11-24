@@ -3,7 +3,7 @@
 Status key: [x] done, [ ] to do, [owner] waiting on Sanjay (see `Docs/NEEDS.md`).
 
 ## Where we are (updated 23 Nov 2026)
-The portfolio is live on `sanjaylagariya.vercel.app`, responsive at three sizes, with dummy content standing in for the missing real content. The resume is live on `sanju2op.github.io`. The next session should continue with **Backlog, in order** below.
+The portfolio is live on `sanjaylagariya.vercel.app`, responsive at three sizes, with dummy content standing in for the missing real content, and a book-shelf project index on tablet and desktop. The resume is live on `sanju2op.github.io`. The next session should continue with **Backlog, in order** below.
 
 ## Done
 - [x] Astro rebuild, Vercel deploy, GitHub Actions CI, domain `sanjaylagariya.vercel.app`
@@ -11,25 +11,27 @@ The portfolio is live on `sanjaylagariya.vercel.app`, responsive at three sizes,
 - [x] Current role (DI Solutions: intern Dec 2025, employee Jun 2026) on the About timeline
 - [x] Dummy content in place: case studies for the three featured projects, a bio, a drawn portrait, generated project covers; no placeholder outlines on the page (23 Nov 2026)
 - [x] Responsive layout: phone, tablet (54 rem) and desktop (68 rem) wrappers; hero with portrait; project rows with covers; case study with a sticky facts sidebar on desktop
-- [x] Case study navigation: previous and next project links at the bottom of each case study (23 Nov 2026)
-- [x] Structured data: `CreativeWork` and `BreadcrumbList` JSON-LD on each case study (23 Nov 2026)
+- [x] Case study navigation (previous and next) and `CreativeWork` + `BreadcrumbList` JSON-LD on each case study
+- [x] **The shelf** (`src/components/ProjectList.astro`): on 48 rem and wider, projects are cloth-bound spines on a board; hovering or keyboard-focusing one opens it to a page with the cover and summary, and the first book is open by default. Phones keep the plain list. Tested open-state for every book at 390, 768, 820, 1024, 1366 and 1600 px with no clipping or overflow; Tab order is spine then title link; Enter opens the case study (23 Nov 2026)
 - [x] Research on resume and portfolio best practices (see Backlog notes)
 
 ## Backlog, in order
 1. [ ] Add `.agents/skills/frontend-design` to this repo
-2. [ ] **The shelf**: project index as cloth-bound spines on tablet and desktop, with a plain list on phones and a keyboard-operable fallback (see `Docs/DESIGN.md`)
-3. [ ] Per-project social images: generate a card per project at build time (title on clay), like `og.png`
-4. [ ] Accessibility checks in CI: run axe against the built pages with Playwright and fail on serious issues
-5. [ ] Performance checks in CI: Lighthouse on the home and one case study; budget of 95 on mobile
-6. [ ] Self-host the two fonts (faster, no third-party request) and add `font-display` tuning
-7. [ ] Image pipeline for real screenshots: import through `astro:assets` so they are resized and converted to WebP
+2. [ ] Per-project social images: generate a card per project at build time (title on clay), like `og.png`
+3. [ ] Accessibility checks in CI: run axe against the built pages with Playwright and fail on serious issues
+4. [ ] Performance checks in CI: Lighthouse on the home and one case study; budget of 95 on mobile
+5. [ ] Self-host the two fonts (faster, no third-party request) and add `font-display` tuning
+6. [ ] Image pipeline for real screenshots: import through `astro:assets` so they are resized and converted to WebP
+7. [ ] Shelf polish once real covers exist: check the cover crop, and decide whether spine colours should follow each project
 8. [ ] Decide on a Sakuga VFX control (`finktheartist/sakuga-vfx`, MIT) for one spot on the Contact page, or drop the idea
 9. [ ] A short "now" page and notes section, once there is something to say
 10. [ ] Colour theme choice (Sky, Blue, Marigold, Mint, Coral) as an optional footer control, if wanted
 
 Research notes behind the backlog: the portfolio should state the role in the first screen, use one consistent format per project, keep links working, and load fast on mobile. Recruiters scan for a few seconds, so the strongest three projects must come first.
 
-Testing note for future sessions: build from a **fresh clone of `main`** before testing. Running `git stash` or testing a stale copy gave a false overflow result once.
+Testing notes for future sessions:
+- Build from a **fresh clone of `main`** before testing. Running `git stash` or testing a stale copy gave a false overflow result once.
+- A test web server started in one shell command does not survive into the next one; start it and run the checks in the same command.
 
 ## Waiting on Sanjay
 See `Docs/NEEDS.md` for the full, current list. The biggest items are a real photo, real screenshots for the three featured projects, and your own words for the case studies and the bio.
