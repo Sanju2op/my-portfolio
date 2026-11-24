@@ -3,10 +3,10 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import { site, nav } from '../data/site';
 
-interface Props { title?: string; description?: string; index?: boolean }
-const { title = site.title, description = site.description, index = true } = Astro.props;
+interface Props { title?: string; description?: string; index?: boolean; image?: string }
+const { title = site.title, description = site.description, index = true, image = '/og.png' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL('/og.png', Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
 const path = Astro.url.pathname;
 ---
 <!doctype html>
@@ -40,7 +40,7 @@ const path = Astro.url.pathname;
     <a class="skip" href="#main">Skip to content</a>
     <header class="nav">
       <div>
-        <a class="mark" href="/" aria-label={`${site.name}, home`}>SL</a>
+        <a class="mark" href="/" aria-label={`SL, ${site.name} home`}>SL</a>
         <nav aria-label="Main">
           {nav.map((n) => <a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a>)}
           <a href={site.resume}>Resume</a>

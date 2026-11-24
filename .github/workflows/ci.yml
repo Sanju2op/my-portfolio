@@ -1,8 +1,8 @@
 name: CI
 
 # Vercel deploys the site. This workflow is the safety net: it builds on every
-# push and pull request and checks the output, so a broken change is caught
-# before (or alongside) the Vercel deploy.
+# push and pull request, checks the output, and runs an accessibility audit, so a
+# broken change is caught before (or alongside) the Vercel deploy.
 on:
   push:
     branches: [main]
@@ -34,10 +34,22 @@ jobs:
       - name: Check the build output
         run: |
           set -e
-          for f in index.html 404.html about/index.html contact/index.html projects/index.html sitemap-index.xml robots.txt favicon.svg og.png; do
+          for f in index.html 404.html about/index.html contact/index.html projects/index.html sitemap-index.xml robots.txt favicon.svg og.png og/testimonials-system.png; do
             test -f "dist/$f" || { echo "missing from build: $f"; exit 1; }
           done
           test "$(ls dist/projects | grep -vc '^index.html$')" -ge 1 || { echo "no project pages were built"; exit 1; }
           grep -q 'rel="canonical" href="https://sanjaylagariya.vercel.app/' dist/index.html || { echo "canonical URL is not the primary domain"; exit 1; }
           if grep -rqE '\+91|tel:' dist --include=*.html; then echo "a phone number or tel: link is in the build"; exit 1; fi
           echo "build output looks right"
+
+      # axe-core against the built pages at phone and desktop widths. Fails on serious or critical issues.
+      - name: Accessibility check
+        run: |
+          npm install --no-save axe-core
+          python3 -m venv .venv
+          . .venv/bin/activate
+          pip install playwright
+          playwright install --with-deps chromium
+          python3 -m http.server 4321 --directory dist &
+          sleep 2
+          python3 scripts/a11y.py http://localhost:4321
