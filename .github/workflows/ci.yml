@@ -1,8 +1,8 @@
 name: CI
 
 # Vercel deploys the site. This workflow is the safety net: it builds on every
-# push and pull request, checks the output, and runs an accessibility audit, so a
-# broken change is caught before (or alongside) the Vercel deploy.
+# push and pull request, checks the output, and runs an accessibility audit and a
+# Lighthouse budget, so a broken change is caught before (or alongside) the Vercel deploy.
 on:
   push:
     branches: [main]
@@ -40,6 +40,7 @@ jobs:
           test "$(ls dist/projects | grep -vc '^index.html$')" -ge 1 || { echo "no project pages were built"; exit 1; }
           grep -q 'rel="canonical" href="https://sanjaylagariya.vercel.app/' dist/index.html || { echo "canonical URL is not the primary domain"; exit 1; }
           if grep -rqE '\+91|tel:' dist --include=*.html; then echo "a phone number or tel: link is in the build"; exit 1; fi
+          if grep -rq 'fonts.googleapis.com' dist --include=*.html; then echo "a Google Fonts request is back in the build"; exit 1; fi
           echo "build output looks right"
 
       # axe-core against the built pages at phone and desktop widths. Fails on serious or critical issues.
@@ -53,3 +54,17 @@ jobs:
           python3 -m http.server 4321 --directory dist &
           sleep 2
           python3 scripts/a11y.py http://localhost:4321
+
+      # Lighthouse on the home page and one case study. Budget: performance 85, other categories 95.
+      - name: Lighthouse check
+        run: |
+          . .venv/bin/activate
+          npm install --no-save lighthouse@13.6.0
+          export CHROME_PATH=$(python3 -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); print(p.chromium.executable_path); p.stop()")
+          python3 -m http.server 4322 --directory dist &
+          sleep 2
+          for page in "" "projects/testimonials-system/"; do
+            name=$(echo "${page:-home}" | tr '/' '_')
+            npx lighthouse "http://localhost:4322/$page" --quiet --chrome-flags="--headless=new --no-sandbox" --output=json --output-path="lh_${name}.json" --only-categories=performance,accessibility,best-practices,seo
+          done
+          python3 scripts/lighthouse_check.py lh_*.json
