@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import { site } from '../../data/site';
 
@@ -34,7 +35,9 @@ const jsonLd = [
   <p class="more" style="margin-top:0"><a href="/projects/">All projects</a></p>
   <h1 class="page-title">{title}</h1>
   <p class="lede" style="margin-top:1.2rem">{summary}</p>
-  <img class="banner" src={cover ?? `/covers/${entry.id}.svg`} alt={`Screenshot of ${title}`} width="800" height="500" />
+  {cover
+    ? <Image class="banner" src={cover} alt={`Screenshot of ${title}`} width={1600} height={1000} fit="cover" position="top" format="webp" quality={78} loading="eager" />
+    : <img class="banner" src={`/covers/${entry.id}.svg`} alt={`Screenshot of ${title}`} width="800" height="500" />}
   <div class="case">
     <dl class="facts">
       {role && <><dt>Role</dt><dd>{role}</dd></>}
