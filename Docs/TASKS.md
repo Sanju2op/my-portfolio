@@ -3,7 +3,7 @@
 Status key: [x] done, [ ] to do, [owner] waiting on Sanjay (see `Docs/NEEDS.md`).
 
 ## Where we are (updated 23 Nov 2026)
-The portfolio is live on `sanjaylagariya.vercel.app`: responsive at three sizes, with dummy content standing in for the missing real content, a book-shelf project index on tablet and desktop, per-project social images, self-hosted fonts, and an accessibility audit and Lighthouse budget in CI. The resume is live on `sanju2op.github.io`. The next session should continue with **Backlog, in order** below.
+The portfolio is live on `sanjaylagariya.vercel.app`: responsive at three sizes, with dummy content standing in for the missing real content, a book-shelf project index on tablet and desktop, per-project social images, self-hosted fonts, an image pipeline ready for real screenshots, and an accessibility audit and Lighthouse budget in CI. The resume is live on `sanju2op.github.io`. The next session should continue with **Backlog, in order** below.
 
 ## Done
 - [x] Astro rebuild, Vercel deploy, GitHub Actions CI, domain `sanjaylagariya.vercel.app`
@@ -15,15 +15,15 @@ The portfolio is live on `sanjaylagariya.vercel.app`: responsive at three sizes,
 - [x] **The shelf** (`ProjectList.astro`): spines on a board from 48 rem, opens on hover or keyboard focus; phones keep the plain list. Verified for every book at 390, 768, 820, 1024, 1366 and 1600 px
 - [x] Per-project social images at `/og/<slug>.png`, drawn at build time
 - [x] Accessibility audit in CI (axe-core, six pages, two widths). It found and fixed one real issue (logo link name)
-- [x] **Fonts self-hosted** from npm (`@fontsource-variable/*`, about 136 KB Latin subset); Google Fonts removed; CI fails if a Google Fonts request returns (23 Nov 2026)
-- [x] **Font preload** for the two Latin files removed a layout shift on the home page (CLS 0.03 to 0) and lifted home performance from 89 to 99 to 100 locally
-- [x] **Lighthouse budget in CI** (`scripts/lighthouse_check.py`): home and one case study, performance 85 and the other three categories 95. Local scores: 99 to 100 performance, 100 for the other three. Passing on GitHub (23 Nov 2026)
+- [x] Fonts self-hosted from npm (`@fontsource-variable/*`); font preload removed a layout shift (CLS 0.03 to 0); Google Fonts blocked in CI
+- [x] Lighthouse budget in CI (home and one case study): performance 85, other categories 95. Local: 99 to 100 performance, 100 for the rest
+- [x] **Image pipeline** (23 Nov 2026): `cover:` in a project's frontmatter takes a file from `src/assets/shots/`; covers become 800 px and 1600 px WebP; images in the case study text are converted to WebP too. Tested with a sample image; projects without a cover keep the drawn placeholder. Guide: `Docs/SCREENSHOTS.md`
 - [x] Research on resume and portfolio best practices
 
 ## Backlog, in order
 1. [ ] Add `.agents/skills/frontend-design` to this repo
-2. [ ] Image pipeline for real screenshots: import through `astro:assets` so they are resized and converted to WebP (needed as soon as real screenshots arrive)
-3. [ ] Shelf polish once real covers exist: check the cover crop, and decide whether spine colours should follow each project
+2. [ ] Use `astro:assets` for the portrait too (the two `<img src="/portrait.svg">` tags), once a real photo arrives
+3. [ ] Shelf polish once real covers exist: check the cover crop (it crops to the top of the screenshot), and decide whether spine colours should follow each project
 4. [ ] Decide on a Sakuga VFX control (`finktheartist/sakuga-vfx`, MIT) for one spot on the Contact page, or drop the idea
 5. [ ] A short "now" page and notes section, once there is something to say
 6. [ ] Colour theme choice (Sky, Blue, Marigold, Mint, Coral) as an optional footer control, if wanted
@@ -37,6 +37,7 @@ Testing notes for future sessions:
 - A test web server started in one shell command does not survive into the next one; start it and run the checks in the same command.
 - Run `scripts/a11y.py` locally (needs `npm install --no-save axe-core` and Playwright) before changing layout or colours.
 - Lighthouse locally: `npm install --no-save lighthouse@13.6.0`, set `CHROME_PATH` to Playwright's Chromium, serve `dist/`, and run `npx lighthouse` with `--chrome-flags="--headless=new --no-sandbox"`. Run it three times; single runs vary.
+- To test the image pipeline, put a sample PNG in `src/assets/shots/` locally and set `cover:` in one MDX; do not commit the sample.
 
 ## Waiting on Sanjay
 See `Docs/NEEDS.md` for the full, current list. The biggest items are a real photo, real screenshots for the three featured projects, and your own words for the case studies and the bio.

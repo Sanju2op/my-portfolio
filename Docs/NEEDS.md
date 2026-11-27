@@ -24,7 +24,7 @@ Status: [ ] still needed, [x] received and applied.
 
 ## C. Projects (Testimonials system, Upwork Clone, Keyboard Shop first)
 For each of the three featured projects:
-- [ ] 3 real screenshots: overview, one key screen, one detail (WebP or PNG, 1600 px wide, light and dark mode if relevant)
+- [ ] 3 real screenshots: overview, one key screen, one detail (PNG or JPG, at least 1600 px wide). **How to add them: see `Docs/SCREENSHOTS.md`** (upload to `src/assets/shots/`, then one line in the project file). The site resizes them and converts them to WebP by itself
 - [ ] A live link, or confirm "code only"
 - [ ] Your role (solo or team size) and the year
 - [ ] Confirm the tech stack (the Upwork Clone and Keyboard Shop stacks are not stated yet)
@@ -45,6 +45,7 @@ Smaller items:
 - [ ] Vercel: remove the old domain `my-portfolio-vert-gamma.vercel.app` (my-portfolio → Settings → Domains → Remove)
 - [ ] GitHub: delete the branch `astro-rewrite` in `my-portfolio`
 - [ ] GitHub: delete the branch `terminal-style` in `Sanju2op.github.io` (it contains the removed phone number)
+- [ ] Upload image files (screenshots, photo) to GitHub yourself; the tools used here can only write text files
 
 ## F. Optional extras
 - [ ] Two real quotes from a teammate, mentor or teacher, with their permission, name and role
@@ -57,8 +58,8 @@ Everything below is placeholder and should be replaced. Update this table when s
 
 | Dummy item | Where it lives | Replace with |
 |---|---|---|
-| Portrait | `src/pages/portrait.svg.ts`, used on home and About | A real photo (put it in `public/`, change the two `<img>` tags) |
-| Project cover images | `src/pages/covers/[slug].svg.ts`; `mock` in each MDX | Real screenshots; set `cover:` in each MDX and remove `mock` |
+| Portrait | `src/pages/portrait.svg.ts`, used on home and About | A real photo (see `Docs/SCREENSHOTS.md` for the upload steps; the two `<img>` tags then use `astro:assets`) |
+| Project cover images | `src/pages/covers/[slug].svg.ts`; `mock` in each MDX | Real screenshots; set `cover:` in each MDX and remove `mock` (see `Docs/SCREENSHOTS.md`) |
 | Case study text (problem, what I built, what was hard, result), role, year | `src/content/projects/testimonials-system.mdx`, `upwork-clone.mdx`, `keyboard-shop.mdx` | Your own words and facts; then remove `dummy: true` |
 | Music App and Template replicas role lines | `music-app.mdx`, `template-replicas.mdx` | Real details; then remove `dummy: true` |
 | About bio | `bio` in `src/data/site.ts` | Your real bio |
